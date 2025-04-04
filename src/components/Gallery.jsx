@@ -1,5 +1,5 @@
-export default function Gallery() {
-  const images = [
+export default function Gallery({ images }) {
+  /* const images = [
     {
       id: 1,
       src: "https://images.unsplash.com/photo-1505873242700-f289a29e1e0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=2255&q=80",
@@ -30,16 +30,16 @@ export default function Gallery() {
       name: "Mountain",
       category: "Mountain",
     },
-  ];
+  ]; */
 
   return (
     <ul className="w-full pb-5 max-w-4xl mx-auto grid grid-cols-[repeat(auto-fit,minmax(210px,_1fr))] gap-4">
       {images.map((image) => (
         <li key={image.id} className="rounded-sm overflow-hidden">
           <img
-            src={image.src}
-            alt={image.name}
-            className="aspect-[4/3] bg-gray-100 object-cover object-center hover:scale-105 transition-transform duration-500 ease-out"
+            src={`https://farm${image.farm}.staticflickr.com/${image.server}/${image.id}_${image.secret}_m.jpg`}
+            alt={image.title}
+            className="w-full h-auto aspect-[4/3] bg-gray-100 object-cover object-center hover:scale-105 transition-transform duration-500 ease-out"
           />
         </li>
       ))}
