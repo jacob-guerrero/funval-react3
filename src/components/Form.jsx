@@ -1,6 +1,25 @@
-export default function Form() {
+export default function Form({ setSearchedImg }) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(document.getElementById("myForm"));
+    const formObj = Object.fromEntries(formData);
+
+    // Validate empty searchs
+    if (formObj.search.trim() === "") {
+      return;
+    }
+
+    // Set searched value
+    setSearchedImg(formObj.search);
+  };
+
   return (
-    <form action="GET" className="w-full max-w-md mx-auto my-10 flex">
+    <form
+      id="myForm"
+      action="GET"
+      className="w-full max-w-md mx-auto my-10 flex"
+      onSubmit={handleSubmit}
+    >
       <input
         type="search"
         name="search"

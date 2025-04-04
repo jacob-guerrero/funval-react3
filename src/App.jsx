@@ -17,8 +17,6 @@ function App() {
     setImages(images.photos.photo);
   };
 
-  const handleClick = (e) => setSearchedImg(e.target.textContent);
-
   useEffect(() => {
     getImages(searchedImg);
   }, [searchedImg]);
@@ -27,11 +25,14 @@ function App() {
     <>
       <h1 className="text-center text-5xl font-bold py-4 px-2">SnapShot</h1>
 
-      <Form />
-      <Options onClick={handleClick} />
+      <Form setSearchedImg={setSearchedImg} />
+      <Options setSearchedImg={setSearchedImg} />
 
       <h2 className="my-10 text-center text-3xl font-semibold">
-        <span id="searched-word">{searchedImg}</span> Images
+        <span id="searched-word" className="capitalize">
+          {searchedImg}
+        </span>{" "}
+        Images
       </h2>
 
       <Gallery images={images} />
