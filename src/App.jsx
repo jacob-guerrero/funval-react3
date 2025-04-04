@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Form from "./components/Form";
 import Gallery from "./components/Gallery";
 import Options from "./components/Options";
+import Loading from "./components/Loading";
 
 function App() {
   const apiKey = "636e1481b4f3c446d26b8eb6ebfe7127";
@@ -10,9 +11,11 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   const getImages = async (query) => {
+    setLoading(true);
     const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`;
     const res = await fetch(url);
     const images = await res.json();
+    setLoading(false);
 
     setImages(images.photos.photo);
   };
@@ -35,7 +38,7 @@ function App() {
         Images
       </h2>
 
-      <Gallery images={images} />
+      {loading ? <Loading /> : <Gallery images={images} />}
     </>
   );
 }
