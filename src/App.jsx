@@ -5,6 +5,7 @@ import Options from "./components/Options";
 
 function App() {
   const apiKey = "636e1481b4f3c446d26b8eb6ebfe7127";
+  const [searchedImg, setSearchedImg] = useState("mountain");
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -16,19 +17,21 @@ function App() {
     setImages(images.photos.photo);
   };
 
+  const handleClick = (e) => setSearchedImg(e.target.textContent);
+
   useEffect(() => {
-    getImages("mountain");
-  }, []);
+    getImages(searchedImg);
+  }, [searchedImg]);
 
   return (
     <>
       <h1 className="text-center text-5xl font-bold py-4 px-2">SnapShot</h1>
 
       <Form />
-      <Options />
+      <Options onClick={handleClick} />
 
       <h2 className="my-10 text-center text-3xl font-semibold">
-        <span id="searched-word">Mountain</span> Images
+        <span id="searched-word">{searchedImg}</span> Images
       </h2>
 
       <Gallery images={images} />
