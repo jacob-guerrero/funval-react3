@@ -12,12 +12,16 @@ function App() {
 
   const getImages = async (query) => {
     setLoading(true);
-    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`;
-    const res = await fetch(url);
-    const images = await res.json();
-    setLoading(false);
-
-    setImages(images.photos.photo);
+    try {
+      const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`;
+      const res = await fetch(url);
+      const images = await res.json();
+      setImages(images.photos.photo);
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {

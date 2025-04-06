@@ -1,3 +1,5 @@
+import Error from "./Error";
+
 export default function Gallery({ images }) {
   /* const images = [
     {
@@ -31,18 +33,24 @@ export default function Gallery({ images }) {
       category: "Mountain",
     },
   ]; */
-
+  if (images.length === 0) {
+    console.log(images.length);
+  }
   return (
     <ul className="w-full pb-5 max-w-4xl mx-auto grid grid-cols-[repeat(auto-fit,minmax(210px,_1fr))] gap-4">
-      {images.map(({ id, farm, server, secret, title }) => (
-        <li key={id} className="rounded-sm overflow-hidden">
-          <img
-            src={`https://farm${farm}.staticflickr.com/${server}/${id}_${secret}_m.jpg`}
-            alt={title}
-            className="w-full h-auto aspect-[4/3] bg-gray-100 object-cover object-center hover:scale-105 transition-transform duration-500 ease-out"
-          />
-        </li>
-      ))}
+      {images.length === 0 ? (
+        <Error />
+      ) : (
+        images.map(({ id, farm, server, secret, title }) => (
+          <li key={id} className="rounded-sm overflow-hidden">
+            <img
+              src={`https://farm${farm}.staticflickr.com/${server}/${id}_${secret}_m.jpg`}
+              alt={title}
+              className="w-full h-auto aspect-[4/3] bg-gray-100 object-cover object-center hover:scale-105 transition-transform duration-500 ease-out"
+            />
+          </li>
+        ))
+      )}
     </ul>
   );
 }
